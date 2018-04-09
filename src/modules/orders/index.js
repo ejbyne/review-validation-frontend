@@ -10,7 +10,7 @@ const orders = {
     server.route({
       method: 'GET',
       path: '/orders',
-      handler: async () => {
+      async handler() {
         const collection = await Order.find();
         return collection;
       }
@@ -19,7 +19,7 @@ const orders = {
     server.route({
       method: 'POST',
       path: '/orders',
-      handler: async (request, h) => {
+      async handler(request, h) {
         const order = await new Order(request.payload).save();
         return h.response(order).code(201);
       },
@@ -37,7 +37,7 @@ const orders = {
     server.route({
       method: 'GET',
       path: '/orders/{id}',
-      handler: async request => {
+      async handler(request) {
         const order = await Order.findById(request.params.id);
         if (!order) {
           return Boom.notFound();
@@ -49,7 +49,7 @@ const orders = {
     server.route({
       method: 'PATCH',
       path: '/orders/{id}',
-      handler: async request => {
+      async handler(request) {
         const order = await Order.findByIdAndUpdate(
           request.params.id,
           request.payload
@@ -65,7 +65,7 @@ const orders = {
     server.route({
       method: 'DELETE',
       path: '/orders/{id}',
-      handler: async (request, h) => {
+      async handler(request, h) {
         const order = await Order.findByIdAndRemove(request.params.id);
         if (!order) {
           return Boom.notFound();
@@ -77,7 +77,7 @@ const orders = {
     server.route({
       method: 'DELETE',
       path: '/orders',
-      handler: async (request, h) => {
+      async handler(request, h) {
         await Order.remove();
         return h.response().code(204);
       }
