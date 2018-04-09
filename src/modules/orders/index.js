@@ -13,6 +13,9 @@ const orders = {
       async handler() {
         const collection = await Order.find();
         return collection;
+      },
+      options: {
+        tags: ['api']
       }
     });
 
@@ -24,6 +27,7 @@ const orders = {
         return h.response(order).code(201);
       },
       options: {
+        tags: ['api'],
         validate: {
           payload: {
             firstName: Joi.string(),
@@ -43,6 +47,9 @@ const orders = {
           return Boom.notFound();
         }
         return order;
+      },
+      options: {
+        tags: ['api']
       }
     });
 
@@ -59,6 +66,9 @@ const orders = {
         }
         const updatedOrder = await Order.findById(request.params.id);
         return updatedOrder;
+      },
+      options: {
+        tags: ['api']
       }
     });
 
@@ -71,6 +81,9 @@ const orders = {
           return Boom.notFound();
         }
         return h.response().code(204);
+      },
+      options: {
+        tags: ['api']
       }
     });
 
@@ -80,6 +93,9 @@ const orders = {
       async handler(request, h) {
         await Order.remove();
         return h.response().code(204);
+      },
+      options: {
+        tags: ['api']
       }
     });
   }

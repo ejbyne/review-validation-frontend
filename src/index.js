@@ -1,8 +1,10 @@
 const Hapi = require('hapi');
+const Inert = require('inert');
+const Vision = require('vision');
+const HapiSwagger = require('hapi-swagger');
 const config = require('config');
 
 const orders = require('./modules/orders');
-
 require('./db');
 
 const server = Hapi.server({
@@ -20,9 +22,22 @@ const server = Hapi.server({
 });
 
 const init = async () => {
-  await server.register({
-    plugin: orders
-  });
+  await server.register([
+    Inert,
+    Vision,
+    {
+      plugin: HapiSwagger,
+      options: {
+        info: {
+          title: 'Orders API',
+          version: '1.0'
+        }
+      }
+    },
+    {
+      plugin: orders
+    }
+  ]);
   await server.start();
   console.log(`Server running at: ${server.info.uri}`);
 };
