@@ -4,7 +4,7 @@ const Vision = require('vision');
 const HapiSwagger = require('hapi-swagger');
 const config = require('config');
 
-const orders = require('./modules/orders');
+const review = require('./modules/review');
 require('./db');
 
 const server = Hapi.server({
@@ -35,7 +35,7 @@ const init = async () => {
       }
     },
     {
-      plugin: orders
+      plugin: review
     }
   ]);
   await server.start();
