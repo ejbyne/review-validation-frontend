@@ -1,0 +1,35 @@
+{
+  "name": "order-validation-hapi-backend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest",
+    "start": "node src",
+    "start:dev": "nodemon src",
+    "format": "eslint --fix src"
+  },
+  "dependencies": {
+    "boom": "^7.2.0",
+    "config": "^1.30.0",
+    "hapi": "^17.3.1",
+    "joi": "^13.1.2",
+    "mongoose": "^5.0.13"
+  },
+  "devDependencies": {
+    "eslint": "^4.19.1",
+    "eslint-config-airbnb": "^16.1.0",
+    "eslint-config-prettier": "^2.9.0",
+    "eslint-plugin-prettier": "^2.6.0",
+    "eslint-plugin-import": "^2.10.0",
+    "eslint-plugin-jsx-a11y": "^6.0.3",
+    "eslint-plugin-react": "^7.7.0",
+    "jest": "^22.4.3",
+    "nodemon": "^1.17.3",
+    "prettier": "^1.11.1",
+    "unexpected": "^10.37.2"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
