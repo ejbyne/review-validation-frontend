@@ -1,7 +1,11 @@
-const Joi = require('joi');
 const Boom = require('boom');
 
 const Review = require('./Review');
+const {
+  reviewSchema,
+  reviewCollectionSchema,
+  noContentSchema
+} = require('./schema');
 
 const reviewPlugin = {
   name: 'review plugin',
@@ -15,7 +19,12 @@ const reviewPlugin = {
         return collection;
       },
       options: {
-        tags: ['api']
+        tags: ['api'],
+        response: {
+          status: {
+            200: reviewCollectionSchema
+          }
+        }
       }
     });
 
@@ -29,18 +38,11 @@ const reviewPlugin = {
       options: {
         tags: ['api'],
         validate: {
-          payload: {
-            firstName: Joi.string().required(),
-            lastName: Joi.string().required(),
-            email: Joi.string().regex(/.+@.+/),
-            score: Joi.number()
-              .integer()
-              .min(0)
-              .max(10)
-              .required(),
-            comment: Joi.string().max(250),
-            date: Joi.date().required(),
-            willComeAgain: Joi.boolean()
+          payload: reviewSchema
+        },
+        response: {
+          status: {
+            201: reviewSchema
           }
         }
       }
@@ -58,12 +60,17 @@ const reviewPlugin = {
         }
       },
       options: {
-        tags: ['api']
+        tags: ['api'],
+        response: {
+          status: {
+            200: reviewSchema
+          }
+        }
       }
     });
 
     server.route({
-      method: 'PATCH',
+      method: 'PUT',
       path: '/reviews/{id}',
       async handler(request) {
         try {
@@ -74,7 +81,15 @@ const reviewPlugin = {
         }
       },
       options: {
-        tags: ['api']
+        tags: ['api'],
+        validate: {
+          payload: reviewSchema
+        },
+        response: {
+          status: {
+            200: reviewSchema
+          }
+        }
       }
     });
 
@@ -90,7 +105,12 @@ const reviewPlugin = {
         }
       },
       options: {
-        tags: ['api']
+        tags: ['api'],
+        response: {
+          status: {
+            204: noContentSchema
+          }
+        }
       }
     });
 
@@ -102,7 +122,12 @@ const reviewPlugin = {
         return h.response().code(204);
       },
       options: {
-        tags: ['api']
+        tags: ['api'],
+        response: {
+          status: {
+            204: noContentSchema
+          }
+        }
       }
     });
   }

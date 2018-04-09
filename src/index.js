@@ -9,6 +9,10 @@ require('./db');
 
 const server = Hapi.server({
   port: config.server.port,
+  router: {
+    isCaseSensitive: false,
+    stripTrailingSlash: true
+  },
   routes: {
     validate: {
       failAction: async (request, h, err) => {
@@ -29,9 +33,13 @@ const init = async () => {
       plugin: HapiSwagger,
       options: {
         info: {
-          title: 'Orders API',
+          title: 'JSUnconf Review API',
           version: '1.0'
-        }
+        },
+        consumes: ['application/json'],
+        produces: ['application/json'],
+        jsonPath: '/schema',
+        documentationPath: '/docs'
       }
     },
     {
