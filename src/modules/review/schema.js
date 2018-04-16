@@ -3,7 +3,9 @@ const Joi = require('joi');
 const reviewSchema = Joi.object({
   firstName: Joi.string().required(),
   lastName: Joi.string().required(),
-  email: Joi.string().regex(/.+@.+/),
+  email: Joi.string()
+    .regex(/^.+@.+$/)
+    .required(),
   score: Joi.number()
     .integer()
     .min(0)
@@ -11,7 +13,7 @@ const reviewSchema = Joi.object({
     .required(),
   comment: Joi.string().max(250),
   date: Joi.date().required(),
-  willComeAgain: Joi.boolean()
+  willComeAgain: Joi.string().valid(['yes', 'no', 'maybe'])
 }).label('Review');
 
 const reviewCollectionSchema = Joi.array()

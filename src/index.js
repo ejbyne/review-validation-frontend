@@ -5,6 +5,7 @@ const HapiSwagger = require('hapi-swagger');
 const config = require('config');
 
 const review = require('./modules/review');
+const swagger = require('./modules/swagger');
 require('./db');
 
 const server = Hapi.server({
@@ -38,13 +39,14 @@ const init = async () => {
         },
         consumes: ['application/json'],
         produces: ['application/json'],
-        jsonPath: '/schema',
-        documentationPath: '/docs'
+        basePath: '/api',
+        jsonPath: '/api/schema',
+        documentationPath: '/docs',
+        grouping: 'tags'
       }
     },
-    {
-      plugin: review
-    }
+    review,
+    swagger
   ]);
   await server.start();
   console.log(`Server running at: ${server.info.uri}`);

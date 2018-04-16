@@ -13,13 +13,13 @@ const reviewPlugin = {
   async register(server) {
     server.route({
       method: 'GET',
-      path: '/reviews',
+      path: '/api/reviews',
       async handler() {
         const collection = await Review.find();
         return collection;
       },
       options: {
-        tags: ['api'],
+        tags: ['api', 'reviews'],
         response: {
           status: {
             200: reviewCollectionSchema
@@ -30,13 +30,13 @@ const reviewPlugin = {
 
     server.route({
       method: 'POST',
-      path: '/reviews',
+      path: '/api/reviews',
       async handler(request, h) {
         const review = await new Review(request.payload).save();
         return h.response(review).code(201);
       },
       options: {
-        tags: ['api'],
+        tags: ['api', 'reviews'],
         validate: {
           payload: reviewSchema
         },
@@ -50,7 +50,7 @@ const reviewPlugin = {
 
     server.route({
       method: 'GET',
-      path: '/reviews/{id}',
+      path: '/api/reviews/{id}',
       async handler(request) {
         try {
           const review = await Review.findById(request.params.id);
@@ -60,7 +60,7 @@ const reviewPlugin = {
         }
       },
       options: {
-        tags: ['api'],
+        tags: ['api', 'reviews'],
         response: {
           status: {
             200: reviewSchema
@@ -71,7 +71,7 @@ const reviewPlugin = {
 
     server.route({
       method: 'PUT',
-      path: '/reviews/{id}',
+      path: '/api/reviews/{id}',
       async handler(request) {
         try {
           await Review.findByIdAndUpdate(request.params.id, request.payload);
@@ -81,7 +81,7 @@ const reviewPlugin = {
         }
       },
       options: {
-        tags: ['api'],
+        tags: ['api', 'reviews'],
         validate: {
           payload: reviewSchema
         },
@@ -95,7 +95,7 @@ const reviewPlugin = {
 
     server.route({
       method: 'DELETE',
-      path: '/reviews/{id}',
+      path: '/api/reviews/{id}',
       async handler(request, h) {
         try {
           await Review.findByIdAndRemove(request.params.id);
@@ -105,7 +105,7 @@ const reviewPlugin = {
         }
       },
       options: {
-        tags: ['api'],
+        tags: ['api', 'reviews'],
         response: {
           status: {
             204: noContentSchema
@@ -116,13 +116,13 @@ const reviewPlugin = {
 
     server.route({
       method: 'DELETE',
-      path: '/reviews',
+      path: '/api/reviews',
       async handler(request, h) {
         await Review.remove();
         return h.response().code(204);
       },
       options: {
-        tags: ['api'],
+        tags: ['api', 'reviews'],
         response: {
           status: {
             204: noContentSchema
