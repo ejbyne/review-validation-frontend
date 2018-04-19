@@ -1,6 +1,7 @@
 const Hapi = require('hapi');
 const Inert = require('inert');
 const Vision = require('vision');
+const Good = require('good');
 const HapiSwagger = require('hapi-swagger');
 const config = require('config');
 
@@ -22,6 +23,9 @@ const server = Hapi.server({
       options: {
         abortEarly: false
       }
+    },
+    response: {
+      failAction: 'ignore'
     }
   }
 });
@@ -43,6 +47,14 @@ const init = async () => {
         jsonPath: '/api/schema',
         documentationPath: '/docs',
         grouping: 'tags'
+      }
+    },
+    {
+      plugin: Good,
+      options: {
+        reporters: {
+          console: [{ module: 'good-console' }, 'stdout']
+        }
       }
     },
     review,
