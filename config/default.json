@@ -3,6 +3,6 @@
     "port": 5000
   },
   "db": {
-    "url": "mongodb://localhost/order-validation"
+    "url": "mongodb://localhost/reviewValidation"
   }
 }
