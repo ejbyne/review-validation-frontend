@@ -7,7 +7,7 @@ const schema = mongoose.Schema({
   score: Number,
   comment: String,
   date: Date,
-  willComeAgain: Boolean
+  willComeAgain: String
 });
 
 const Review = mongoose.model('Review', schema);
